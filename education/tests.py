@@ -77,6 +77,9 @@ class ModuleTestCase(APITestCase):
         )
 
     def test_update_module(self):
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
+
         data2 = {
             'ordinal': 2,
             'name': 'test_updated',
@@ -89,6 +92,9 @@ class ModuleTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_module(self):
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
+
         response = self.client.delete(
             reverse('education:module_delete', kwargs={'pk': self.module.pk}))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
